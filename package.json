@@ -1,5 +1,5 @@
 {
-  "name": "tibber-socket",
+  "name": "tibber-pulse-connector",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -21,5 +21,18 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.4.2"
-  }
+  },
+  "description": "A connector for the Tibber Pulse API",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/kvasbo/tibber-pulse-connector.git"
+  },
+  "keywords": [
+    "tibber"
+  ],
+  "author": "Audun Kvasbø",
+  "bugs": {
+    "url": "https://gitlab.com/kvasbo/tibber-pulse-connector/issues"
+  },
+  "homepage": "https://gitlab.com/kvasbo/tibber-pulse-connector#readme"
 }
