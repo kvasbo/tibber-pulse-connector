@@ -2,7 +2,7 @@
   "name": "tibber-pulse-connector",
   "version": "1.0.1",
   "main": "build/index.js",
-  "license": "MIT",
+  "license": "The Unlicense",
   "scripts": {
     "build": "babel src -d build",
     "start": "yarn run build && node ./build/index.js",
