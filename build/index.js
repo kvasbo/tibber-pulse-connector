@@ -57,10 +57,15 @@ function () {
     }
 
     if (!onData) {
-      console.log("No callback function provided, will simply log to console.");
+      console.log("No callback function provided. Will console.log instead.");
+      return;
     }
 
-    this.homeId = homeId; // Create link
+    console.log(onData);
+    this.homeId = homeId;
+    this.onData = onData ? onData : function (data) {
+      return console.log(data);
+    }; // Create link
 
     this.link = new _apolloLinkWs.WebSocketLink({
       uri: ENDPOINT,
@@ -81,13 +86,10 @@ function () {
   }
 
   _createClass(tibberConnector, [{
-    key: "onData",
-    value: function onData(data) {
-      console.log(data);
-    }
-  }, {
     key: "start",
     value: function start() {
+      var _this = this;
+
       this.observer = this.client.subscribe({
         query: CONSUMPTION_QUERY,
         variables: {
@@ -95,7 +97,7 @@ function () {
         }
       }).subscribe({
         next: function next(data) {
-          console.log(data);
+          _this.onData(data);
         },
         error: function error(err) {
           console.error('err', err);
