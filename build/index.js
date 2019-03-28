@@ -13,8 +13,6 @@ var _apolloClient = _interopRequireDefault(require("apollo-client"));
 
 var _graphqlTag = _interopRequireDefault(require("graphql-tag"));
 
-var _ws = _interopRequireDefault(require("ws"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35,8 +33,9 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
+// import ws from 'ws';
 // Polyfill
-if (!global.fetch) global.fetch = require('node-fetch');
+// if (!global.fetch) global.fetch = require('node-fetch');
 var ENDPOINT = "wss://api.tibber.com/v1-beta/gql/subscriptions";
 var CONSUMPTION_QUERY = (0, _graphqlTag.default)(_templateObject());
 
@@ -75,8 +74,8 @@ function () {
             token: token
           };
         }
-      },
-      webSocketImpl: _ws.default
+      } // webSocketImpl: ws
+
     }); // Set up client
 
     this.client = new _apolloClient.default({

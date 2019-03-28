@@ -2,6 +2,10 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
 import gql from 'graphql-tag';
+// import ws from 'ws';
+
+// Polyfill
+// if (!global.fetch) global.fetch = require('node-fetch');
 
 const ENDPOINT = `wss://api.tibber.com/v1-beta/gql/subscriptions`;
 
@@ -46,7 +50,8 @@ class tibberConnector {
         connectionParams: () => ({
           token: token,
         }),
-      }
+      },
+      // webSocketImpl: ws
     });
 
     // Set up client
