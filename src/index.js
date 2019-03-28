@@ -64,7 +64,12 @@ class tibberConnector {
   start() {
     this.observer = this.client.subscribe({ query: CONSUMPTION_QUERY, variables: { homeId: this.homeId } }).subscribe({
       next: (data) => {
-        this.onData(data);
+        if (data && data.liveMeasurement) {
+          this.onData(data.liveMeasurement);
+        } else {
+          throw new Error("No Tibber data or malformed data");
+        }
+        
       },
       error(err) { console.error('err', err); },
     });

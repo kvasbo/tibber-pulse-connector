@@ -1,5 +1,7 @@
 A wrapper for the Tibber Pulse websocket API. Not finished, but should work.
 
+Browser only, as Node lacks a ws and fetch implementations. A node version will come!
+
 Example:
 
 ```javascript
