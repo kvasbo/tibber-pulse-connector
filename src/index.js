@@ -35,7 +35,6 @@ class tibberConnector {
     }
     if (!onData) {
       console.log("No callback function provided. Will console.log instead.")
-      return;
     }
 
     this.homeId = homeId;
