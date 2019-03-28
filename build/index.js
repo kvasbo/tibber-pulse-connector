@@ -96,8 +96,8 @@ function () {
         }
       }).subscribe({
         next: function next(data) {
-          if (data && data.liveMeasurement) {
-            _this.onData(data.liveMeasurement);
+          if (data) {
+            _this.onData(data);
           } else {
             throw new Error("No Tibber data or malformed data");
           }
