@@ -14,9 +14,7 @@
     "apollo-link-ws": "^1.0.17",
     "graphql": "^14.0.0",
     "graphql-tag": "^2.10.1",
-    "node-fetch": "^2.3.0",
-    "subscriptions-transport-ws": "^0.9.0",
-    "ws": "^6.2.0"
+    "subscriptions-transport-ws": "^0.9.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
