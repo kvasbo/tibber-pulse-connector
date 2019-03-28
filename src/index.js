@@ -8,8 +8,6 @@ import ws from 'ws';
 if (!global.fetch) global.fetch = require('node-fetch');
 
 const ENDPOINT = `wss://api.tibber.com/v1-beta/gql/subscriptions`;
-const TOKEN = `d1007ead2dc84a2b82f0de19451c5fb22112f7ae11d19bf2bedb224a003ff74a`;
-const HOMEID = `68e6938b-91a6-4199-a0d4-f24c22be87bb`;
 
 const CONSUMPTION_QUERY = gql`subscription liveConsumption($homeId: ID!) {
   liveMeasurement(homeId:$homeId)
@@ -25,6 +23,54 @@ const CONSUMPTION_QUERY = gql`subscription liveConsumption($homeId: ID!) {
     }
   }`;
 
+class tibberConnector {
+  constructor(token, homeId, onData) {
+    if (!token) {
+      console.log("No token provided. Computer says no.")
+      return;
+    }
+    if (!homeId) {
+      console.log("No homeId provided. Computer says no.")
+      return;
+    }
+    if (!onData) {
+      console.log("No callback functino provided, will simply log to console.")
+    }
+
+    this.homeId = homeId;
+    this.onData = (onData) ? onData : (data) => { console.log(data) }; // Log to console if no callback set.
+
+    // Create link
+    this.link = new WebSocketLink({
+      uri: ENDPOINT,
+      options: {
+        reconnect: true,
+        connectionParams: () => ({
+          token: token,
+        }),
+      },
+      webSocketImpl: ws
+    });
+
+    this.apolloClient = new ApolloClient({
+      link: this.link,
+      cache: new InMemoryCache()
+    });
+  }
+
+  start() {
+    this.observer = apolloClient.subscribe({ query: CONSUMPTION_QUERY, variables: { homeId: this.homeId } }).subscribe({
+      next(data) {
+        console.log(data);
+      },
+      error(err) { console.error('err', err); },
+    });
+
+  }
+
+}
+
+/*
 const link = new WebSocketLink({
   uri: ENDPOINT,
   options: {
@@ -35,14 +81,16 @@ const link = new WebSocketLink({
   },
   webSocketImpl: ws
 });
+*/
 
+/*
 const apolloClient = new ApolloClient({
   link: link,
   cache: new InMemoryCache()
 });
+*/
 
-apolloClient
-
+/*
 const observer = apolloClient.subscribe({ query: CONSUMPTION_QUERY, variables: { homeId: HOMEID } });
 
 observer.subscribe({
@@ -51,3 +99,7 @@ observer.subscribe({
   },
   error(err) { console.error('err', err); },
 });
+*/
+
+module.exports = tibberConnector;
+export default tibberConnector;
