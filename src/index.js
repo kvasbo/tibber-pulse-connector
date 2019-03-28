@@ -34,11 +34,10 @@ class tibberConnector {
       return;
     }
     if (!onData) {
-      console.log("No callback functino provided, will simply log to console.")
+      console.log("No callback function provided, will simply log to console.")
     }
 
-    this.homeId = homeId;
-    this.onData = (onData) ? onData : (data) => { console.log(data) }; // Log to console if no callback set.
+    this.homeId = homeId;    
 
     // Create link
     this.link = new WebSocketLink({
@@ -52,14 +51,16 @@ class tibberConnector {
       webSocketImpl: ws
     });
 
-    this.apolloClient = new ApolloClient({
+    this.client = new ApolloClient({
       link: this.link,
       cache: new InMemoryCache()
     });
   }
 
+  onData(data) { console.log(data) };
+
   start() {
-    this.observer = apolloClient.subscribe({ query: CONSUMPTION_QUERY, variables: { homeId: this.homeId } }).subscribe({
+    this.observer = this.client.subscribe({ query: CONSUMPTION_QUERY, variables: { homeId: this.homeId } }).subscribe({
       next(data) {
         console.log(data);
       },
