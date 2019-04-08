@@ -14,12 +14,19 @@ const CONSUMPTION_QUERY = gql`subscription liveConsumption($homeId: ID!) {
     {
       timestamp
       power
+      powerProduction
       accumulatedConsumption
+      accumulatedProduction
       accumulatedCost
+      accumulatedReward
       currency
       minPower
       averagePower
       maxPower
+      minPowerProduction
+      maxPowerProduction
+      lastMeterConsumption
+      lastMeterProduction
     }
   }`;
 

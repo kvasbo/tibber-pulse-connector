@@ -22,7 +22,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["subscription liveConsumption($homeId: ID!) {\n  liveMeasurement(homeId:$homeId)\n    {\n      timestamp\n      power\n      accumulatedConsumption\n      accumulatedCost\n      currency\n      minPower\n      averagePower\n      maxPower\n    }\n  }"]);
+  var data = _taggedTemplateLiteral(["subscription liveConsumption($homeId: ID!) {\n  liveMeasurement(homeId:$homeId)\n    {\n      timestamp\n      power\n      powerProduction\n      accumulatedConsumption\n      accumulatedProduction\n      accumulatedCost\n      accumulatedReward\n      currency\n      minPower\n      averagePower\n      maxPower\n      minPowerProduction\n      maxPowerProduction\n      lastMeterConsumption\n      lastMeterProduction\n    }\n  }"]);
 
   _templateObject = function _templateObject() {
     return data;
