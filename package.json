@@ -1,6 +1,6 @@
 {
   "name": "tibber-pulse-connector",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "build/index.js",
   "license": "Unlicense",
   "scripts": {
@@ -24,14 +24,14 @@
   "description": "A connector for the Tibber Pulse API",
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/kvasbo/tibber-pulse-connector.git"
+    "url": "git+https://github.com/kvasbo/tibber-pulse-connector.git"
   },
   "keywords": [
     "tibber"
   ],
   "author": "Audun Kvasbø",
   "bugs": {
-    "url": "https://gitlab.com/kvasbo/tibber-pulse-connector/issues"
+    "url": "https://github.com/kvasbo/tibber-pulse-connector/issues"
   },
-  "homepage": "https://gitlab.com/kvasbo/tibber-pulse-connector#readme"
+  "homepage": "https://github.com/kvasbo/tibber-pulse-connector"
 }
