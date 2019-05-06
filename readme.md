@@ -15,3 +15,4 @@ const connector = new tibber(TOKEN, HOMEID, (data) => { console.log(data) });
 connector.start();
 ```
 
+[![Build Status](https://travis-ci.com/kvasbo/tibber-pulse-connector.svg?branch=master)](https://travis-ci.com/kvasbo/tibber-pulse-connector)
