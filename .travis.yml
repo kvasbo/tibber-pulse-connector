@@ -1,0 +1,21 @@
+# Bare kjøre på hovedbranch
+if: branch = master
+
+language: node_js
+node_js: '8'
+cache:
+  - yarn
+  - npm
+
+install:
+- npm install -g npx
+- yarn install --non-interactive --pure-lockfile
+
+before_script:
+# - yarn run lint
+
+script:
+- CI=false yarn run build || travis_terminate 1;
+
+after_script:
+# - firebase deploy -m "Travis, Build $TRAVIS_BUILD_NUMBER, commit $TRAVIS_COMMIT" --non-interactive --token $FIREBASE_TOKEN

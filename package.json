@@ -4,9 +4,7 @@
   "main": "build/index.js",
   "license": "Unlicense",
   "scripts": {
-    "build": "babel src -d build",
-    "start": "yarn run build && node ./build/index.js",
-    "test": "yarn run build && node ./test/index.js"
+    "build": "npx tsc"
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.5.1",
@@ -19,7 +17,9 @@
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2"
+    "@babel/preset-env": "^7.4.2",
+    "@types/node": "^12.0.0",
+    "typescript": "^3.4.5"
   },
   "description": "A connector for the Tibber Pulse API",
   "repository": {
