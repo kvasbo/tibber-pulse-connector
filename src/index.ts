@@ -85,4 +85,6 @@ class tibberConnector {
 
 }
 
+module.exports = tibberConnector;
+
 export default tibberConnector;
