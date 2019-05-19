@@ -35,6 +35,8 @@ var CONSUMPTION_QUERY = (0, _graphqlTag.default)(_templateObject());
 var tibberConnector = function tibberConnector(token, homeId, onData) {
   var _this = this;
 
+  var ws = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : undefined;
+
   _classCallCheck(this, tibberConnector);
 
   this.start = function () {
@@ -75,7 +77,7 @@ var tibberConnector = function tibberConnector(token, homeId, onData) {
   this.onData = onData ? onData : function (data) {
     return console.log(data);
   };
-  this.link = new _apolloLinkWs.WebSocketLink({
+  var linkOptions = {
     uri: ENDPOINT,
     options: {
       reconnect: true,
@@ -85,7 +87,13 @@ var tibberConnector = function tibberConnector(token, homeId, onData) {
         };
       }
     }
-  });
+  };
+
+  if (ws) {
+    linkOptions.webSocketImpl = ws;
+  }
+
+  this.link = new _apolloLinkWs.WebSocketLink(linkOptions);
   this.client = new _apolloClient.default({
     link: this.link,
     cache: new _apolloCacheInmemory.InMemoryCache()

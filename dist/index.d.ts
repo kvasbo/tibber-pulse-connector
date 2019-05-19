@@ -3,7 +3,7 @@ declare class tibberConnector {
     private onData;
     private link;
     private client;
-    constructor(token: string, homeId: string, onData: Function);
+    constructor(token: string, homeId: string, onData: Function, ws?: WebSocket);
     start: () => void;
 }
 export default tibberConnector;

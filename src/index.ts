@@ -32,7 +32,7 @@ class tibberConnector {
   private link: WebSocketLink;
   private client: any;
 
-  constructor(token: string, homeId: string, onData: Function) {
+  constructor(token: string, homeId: string, onData: Function, ws: WebSocket = undefined) {
     if (!token) {
       console.log("No token provided. Computer says no.")
       throw new Error("No token supplied");
@@ -50,8 +50,7 @@ class tibberConnector {
     // Fallback function if no callback is defined.
     this.onData = (onData) ? onData : (data: any) => console.log(data);
 
-    // Create link
-    this.link = new WebSocketLink({
+    const linkOptions: WebSocketLink.Configuration = {
       uri: ENDPOINT,
       options: {
         reconnect: true,
@@ -59,8 +58,15 @@ class tibberConnector {
           token: token,
         }),
       },
-      // webSocketImpl: ws
-    });
+    }
+
+    // Add websocket if defined
+    if (ws) {
+      linkOptions.webSocketImpl = ws;
+    }
+
+    // Create link
+    this.link = new WebSocketLink(linkOptions);
 
     // Set up client
     this.client = new ApolloClient({
