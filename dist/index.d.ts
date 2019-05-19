@@ -7,4 +7,3 @@ declare class tibberConnector {
     start: () => void;
 }
 export default tibberConnector;
-//# sourceMappingURL=index.d.ts.map
