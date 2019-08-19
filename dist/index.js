@@ -45,11 +45,7 @@ var tibberConnector = function tibberConnector(options) {
       }
     }).subscribe({
       next: function next(data) {
-        if (data) {
-          _this.onData(data);
-        } else {
-          _this.onError(new Error('Data error'));
-        }
+        _this.onData(data);
       },
       error: function error(err) {
         this.onError(err);

@@ -86,12 +86,7 @@ class tibberConnector {
   public start = () => {
     this.client.subscribe({ query: CONSUMPTION_QUERY, variables: { homeId: this.homeId } }).subscribe({
       next: (data: object) => {
-        if (data) {
-          this.onData(data);
-        } else {
-          this.onError(new Error('Data error'));
-        }
-        
+        this.onData(data);
       },
       error(err: Error) { this.onError(err); },
     });
