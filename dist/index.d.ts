@@ -1,9 +1,17 @@
+export interface tibberConnectorOptions {
+    token: string;
+    homeId: string;
+    onData?: Function;
+    onError?: Function;
+    ws?: WebSocket;
+}
 declare class tibberConnector {
     private homeId;
     private onData;
+    private onError;
     private link;
     private client;
-    constructor(token: string, homeId: string, onData: Function, ws?: WebSocket);
+    constructor(options: tibberConnectorOptions);
     start: () => void;
 }
 export default tibberConnector;

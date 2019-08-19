@@ -26,13 +26,23 @@ const CONSUMPTION_QUERY = gql`subscription liveConsumption($homeId: ID!) {
     }
   }`;
 
+export interface tibberConnectorOptions {
+  token: string;
+  homeId: string;
+  onData?: Function;
+  onError?: Function;
+  ws?: WebSocket;
+}
+
 class tibberConnector {
   private homeId: string;
   private onData: Function;
+  private onError: Function;
   private link: WebSocketLink;
   private client: any;
 
-  constructor(token: string, homeId: string, onData: Function, ws: WebSocket = undefined) {
+  constructor(options: tibberConnectorOptions) {
+    const { token, homeId, onData, ws, onError } = options;
     if (!token) {
       console.log("No token provided. Computer says no.")
       throw new Error("No token supplied");
@@ -41,14 +51,12 @@ class tibberConnector {
       console.log("No homeId provided. Computer says no.")
       throw new Error("No homeID supplied");
     }
-    if (!onData) {
-      throw new Error("No callback supplied");
-    }
 
+    // Fallback function if no callbacks defined.
+    this.onData = (onData) ? onData : (data: any) => console.log('Data', data);
+    this.onError = (onError) ? onError : (error: any) => console.log('Error', error);
+    
     this.homeId = homeId;
-
-    // Fallback function if no callback is defined.
-    this.onData = (onData) ? onData : (data: any) => console.log(data);
 
     const linkOptions: WebSocketLink.Configuration = {
       uri: ENDPOINT,
@@ -81,11 +89,11 @@ class tibberConnector {
         if (data) {
           this.onData(data);
         } else {
-          throw new Error("No Tibber data or malformed data");
+          this.onError(new Error('Data error'));
         }
         
       },
-      error(err: Error) { console.error('err', err); },
+      error(err: Error) { this.onError(err); },
     });
   }
 

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _apolloLinkWs = require("apollo-link-ws");
 
@@ -13,7 +13,7 @@ var _apolloClient = _interopRequireDefault(require("apollo-client"));
 
 var _graphqlTag = _interopRequireDefault(require("graphql-tag"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -30,12 +30,10 @@ function _templateObject() {
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var ENDPOINT = "wss://api.tibber.com/v1-beta/gql/subscriptions";
-var CONSUMPTION_QUERY = (0, _graphqlTag.default)(_templateObject());
+var CONSUMPTION_QUERY = (0, _graphqlTag["default"])(_templateObject());
 
-var tibberConnector = function tibberConnector(token, homeId, onData) {
+var tibberConnector = function tibberConnector(options) {
   var _this = this;
-
-  var ws = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : undefined;
 
   _classCallCheck(this, tibberConnector);
 
@@ -50,14 +48,20 @@ var tibberConnector = function tibberConnector(token, homeId, onData) {
         if (data) {
           _this.onData(data);
         } else {
-          throw new Error("No Tibber data or malformed data");
+          _this.onError(new Error('Data error'));
         }
       },
       error: function error(err) {
-        console.error('err', err);
+        this.onError(err);
       }
     });
   };
+
+  var token = options.token,
+      homeId = options.homeId,
+      onData = options.onData,
+      ws = options.ws,
+      onError = options.onError;
 
   if (!token) {
     console.log("No token provided. Computer says no.");
@@ -69,14 +73,13 @@ var tibberConnector = function tibberConnector(token, homeId, onData) {
     throw new Error("No homeID supplied");
   }
 
-  if (!onData) {
-    throw new Error("No callback supplied");
-  }
-
-  this.homeId = homeId;
   this.onData = onData ? onData : function (data) {
-    return console.log(data);
+    return console.log('Data', data);
   };
+  this.onError = onError ? onError : function (error) {
+    return console.log('Error', error);
+  };
+  this.homeId = homeId;
   var linkOptions = {
     uri: ENDPOINT,
     options: {
@@ -94,7 +97,7 @@ var tibberConnector = function tibberConnector(token, homeId, onData) {
   }
 
   this.link = new _apolloLinkWs.WebSocketLink(linkOptions);
-  this.client = new _apolloClient.default({
+  this.client = new _apolloClient["default"]({
     link: this.link,
     cache: new _apolloCacheInmemory.InMemoryCache()
   });
@@ -102,4 +105,4 @@ var tibberConnector = function tibberConnector(token, homeId, onData) {
 
 module.exports = tibberConnector;
 var _default = tibberConnector;
-exports.default = _default;
+exports["default"] = _default;
