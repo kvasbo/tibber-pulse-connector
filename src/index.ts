@@ -88,7 +88,7 @@ class tibberConnector {
       next: (data: object) => {
         this.onData(data);
       },
-      error(err: Error) { this.onError(err); },
+      error: (err: Error) => { this.onError(err); },
     });
   }
 
