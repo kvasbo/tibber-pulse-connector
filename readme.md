@@ -1,5 +1,7 @@
 A wrapper for the Tibber Pulse websocket API. Not finished, but should work.
 
+Breaking change in 2.0.0: Options is now an object.
+
 Parameters: 
 
 token: Required, from the Tibber API
