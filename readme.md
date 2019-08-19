@@ -1,5 +1,16 @@
 A wrapper for the Tibber Pulse websocket API. Not finished, but should work.
 
+Parameters: 
+
+token: Required, from the Tibber API
+homeId: Required, from the Tibber API
+onData: On data received. Not required, but no idea why you'd use this without it.
+onError: Returns any errors from the subscription
+
+Methods: 
+
+start: Initiates the subscription. Nothing happens until you invoke this.
+
 Example:
 
 ```javascript
