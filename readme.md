@@ -11,7 +11,7 @@ Parameters:
 
 Methods: 
 
-start: Initiates the subscription. Nothing happens until you invoke this.
+* start: Initiates the subscription. Nothing happens until you invoke this.
 
 Example:
 
