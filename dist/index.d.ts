@@ -1,6 +1,6 @@
 export interface tibberConnectorOptions {
     token: string;
-    homeId: string;
+    homeId: string | string[];
     onData?: Function;
     onError?: Function;
     ws?: WebSocket;

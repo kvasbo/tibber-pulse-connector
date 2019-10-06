@@ -28,14 +28,14 @@ const CONSUMPTION_QUERY = gql`subscription liveConsumption($homeId: ID!) {
 
 export interface tibberConnectorOptions {
   token: string;
-  homeId: string;
+  homeId: string | string[];
   onData?: Function;
   onError?: Function;
   ws?: WebSocket;
 }
 
 class tibberConnector {
-  private homeId: string;
+  private homeId: string[];
   private onData: Function;
   private onError: Function;
   private link: WebSocketLink;
@@ -56,8 +56,13 @@ class tibberConnector {
     this.onData = (onData) ? onData : (data: any) => console.log('Data', data);
     this.onError = (onError) ? onError : (error: any) => console.log('Error', error);
     
-    this.homeId = homeId;
-
+    // Make sure we have an array of ids.
+    if (Array.isArray(homeId)) {
+      this.homeId = [...homeId];
+    } else {
+      this.homeId = [homeId];
+    }
+    
     const linkOptions: WebSocketLink.Configuration = {
       uri: ENDPOINT,
       options: {
@@ -84,11 +89,13 @@ class tibberConnector {
   }
 
   public start = () => {
-    this.client.subscribe({ query: CONSUMPTION_QUERY, variables: { homeId: this.homeId } }).subscribe({
-      next: (data: object) => {
-        this.onData(data);
-      },
-      error: (err: Error) => { this.onError(err); },
+    this.homeId.forEach((id) => {
+      this.client.subscribe({ query: CONSUMPTION_QUERY, variables: { homeId: id } }).subscribe({
+        next: (data: object) => {
+          this.onData(data, id);
+        },
+        error: (err: Error) => { this.onError(err, id); },
+      });
     });
   }
 

@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test": "cd .. && yarn run build && cd test && node index.js"
+  },
   "dependencies": {
-    "ws": "^7.0.0"
+    "ws": "7.1.2"
   }
 }

@@ -9,17 +9,17 @@
   "dependencies": {
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
-    "apollo-link-ws": "^1.0.17",
-    "graphql": "^14.0.0",
+    "apollo-link-ws": "1.0.19",
+    "graphql": "14.5.8",
     "graphql-tag": "^2.10.1",
     "subscriptions-transport-ws": "^0.9.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "@types/node": "^12.0.0",
-    "typescript": "^3.4.5"
+    "@babel/cli": "7.6.2",
+    "@babel/core": "7.6.2",
+    "@babel/preset-env": "7.6.2",
+    "@types/node": "12.7.11",
+    "typescript": "3.6.3"
   },
   "description": "A connector for the Tibber Pulse API",
   "repository": {
