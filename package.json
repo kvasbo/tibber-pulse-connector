@@ -19,6 +19,7 @@
     "@babel/core": "7.6.2",
     "@babel/preset-env": "7.6.2",
     "@types/node": "12.7.11",
+    "@types/ws": "^6.0.3",
     "typescript": "3.6.3"
   },
   "description": "A connector for the Tibber Pulse API",
