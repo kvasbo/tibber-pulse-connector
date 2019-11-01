@@ -1,26 +1,27 @@
 {
   "name": "tibber-pulse-connector",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "main": "dist/index.js",
   "license": "Unlicense",
   "scripts": {
-    "build": "npx tsc && ./node_modules/.bin/babel tsBuild --out-dir dist && cp ./tsBuild/index.d.ts ./dist && rm -rf tsBuild"
+    "build": "npx tsc && ./node_modules/.bin/babel tsBuild --out-dir dist && cp ./tsBuild/index.d.ts ./dist && rm -rf tsBuild",
+    "test": ""
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
-    "apollo-link-ws": "1.0.19",
-    "graphql": "14.5.8",
+    "apollo-link-ws": "^1.0.19",
+    "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
     "subscriptions-transport-ws": "^0.9.0"
   },
   "devDependencies": {
-    "@babel/cli": "7.6.2",
-    "@babel/core": "7.6.2",
-    "@babel/preset-env": "7.6.2",
-    "@types/node": "12.7.11",
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@types/node": "^12.7.11",
     "@types/ws": "^6.0.3",
-    "typescript": "3.6.3"
+    "typescript": "^3.6.3"
   },
   "description": "A connector for the Tibber Pulse API",
   "repository": {
