@@ -9,9 +9,9 @@ install:
 - yarn install --non-interactive --pure-lockfile
 
 script:
-- yarn run lint
+- yarn run lint || travis_terminate 1;
 - CI=false yarn run build || travis_terminate 1;
-- yarn run test
+- yarn run test || travis_terminate 1;
 
 after_script:
 - npm-cli-login -u $NPM_USER -p $NPM_PASS  
