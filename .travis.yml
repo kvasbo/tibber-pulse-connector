@@ -4,8 +4,10 @@ cache:
   - yarn
   - npm
 stages:
-- name: deploy
-  # require the branch name to be master (note for PRs this is the base branch name)
+- install
+- check
+- build
+- name: publish
   if: branch = master
 
 install:
@@ -13,12 +15,12 @@ install:
 - npm install -g npm-cli-login
 - yarn install --non-interactive --pure-lockfile
 
-before_script:
+check:
 - yarn run lint
 - yarn run test
 
-script:
+build:
 - CI=false yarn run build || travis_terminate 1;
 
-deploy:
-- npm-cli-login -u $NPM_USER -p $NPM_PASS
+publish:
+- npm-cli-login -u $NPM_USER -p $NPM_PASS  
