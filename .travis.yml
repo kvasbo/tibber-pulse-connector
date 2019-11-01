@@ -7,6 +7,7 @@ stages:
 - install
 - check
 - build
+- test
 - name: publish
   if: branch = master
 
@@ -17,10 +18,12 @@ install:
 
 check:
 - yarn run lint
-- yarn run test
 
 build:
 - CI=false yarn run build || travis_terminate 1;
+
+test: 
+- yarn run test
 
 publish:
 - npm-cli-login -u $NPM_USER -p $NPM_PASS  
