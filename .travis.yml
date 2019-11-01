@@ -3,27 +3,9 @@ node_js: '10'
 cache:
   - yarn
   - npm
-stages:
-- install
-- check
-- build
-- test
-- name: publish
-  if: branch = master
 
 install:
 - npm install -g npx
-- npm install -g npm-cli-login
 - yarn install --non-interactive --pure-lockfile
 
-check:
-- yarn run lint
-
-build:
-- CI=false yarn run build || travis_terminate 1;
-
-test: 
-- yarn run test
-
-publish:
-- npm-cli-login -u $NPM_USER -p $NPM_PASS  
+script: ./scripts/build.sh

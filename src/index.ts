@@ -33,7 +33,7 @@ const CONSUMPTION_QUERY = gql`
   }
 `;
 
-export interface tibberConnectorOptions {
+interface TibberConnectorOptions {
   token: string;
   homeId: string | string[];
   onData?: Function;
@@ -41,29 +41,36 @@ export interface tibberConnectorOptions {
   ws?: WebSocket;
 }
 
-class tibberConnector {
+class TibberConnector {
   private homeId: string[];
   private onData: Function;
   private onError: Function;
   private link: WebSocketLink;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private client: any;
 
-  constructor(options: tibberConnectorOptions) {
+  constructor(options: TibberConnectorOptions) {
     const { token, homeId, onData, ws, onError } = options;
     if (!token) {
-      console.log("No token provided. Computer says no.");
       throw new Error("No token supplied");
     }
     if (!homeId) {
-      console.log("No homeId provided. Computer says no.");
       throw new Error("No homeID supplied");
     }
+    if (!onData) {
+      throw new Error("No data callback function supplied");
+    }
+
+    this.onData = onData;
 
     // Fallback function if no callbacks defined.
-    this.onData = onData ? onData : (data: any) => console.log("Data", data);
+    /* eslint-disable @typescript-eslint/no-explicit-any, no-console, @typescript-eslint/indent, prettier/prettier */
     this.onError = onError
       ? onError
-      : (error: any) => console.log("Error", error);
+      : (error: Error) => {
+        throw error;
+      };
+    /* eslint-enable @typescript-eslint/no-explicit-any, no-console, @typescript-eslint/indent, prettier/prettier */
 
     // Make sure we have an array of ids.
     if (Array.isArray(homeId)) {
@@ -113,6 +120,6 @@ class tibberConnector {
   };
 }
 
-module.exports = tibberConnector;
+module.exports = TibberConnector;
 
-export default tibberConnector;
+export default TibberConnector;
