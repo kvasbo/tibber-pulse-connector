@@ -9,7 +9,8 @@ install:
 - yarn install --non-interactive --pure-lockfile
 
 stages:
-  - test
+  - name: test
+    if: branch != master
   - name: deploy
     if: branch = master
 
@@ -24,3 +25,4 @@ jobs:
         - ./scripts/build.sh
         - npm install -g npm-cli-login
         - npm-cli-login -u $NPM_USER -p $NPM_PASS -e $NPM_EMAIL
+        - npm publish
