@@ -23,6 +23,12 @@ const CONSUMPTION_QUERY = gql`subscription liveConsumption($homeId: ID!) {
       maxPowerProduction
       lastMeterConsumption
       lastMeterProduction
+      voltagePhase1
+      voltagePhase2
+      voltagePhase3
+      currentPhase1
+      currentPhase2
+      currentPhase3
     }
   }`;
 
