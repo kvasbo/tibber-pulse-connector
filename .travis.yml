@@ -8,17 +8,7 @@ install:
 - npm install -g npx
 - yarn install --non-interactive --pure-lockfile
 
-before_script:
+script:
   - yarn run lint || travis_terminate 1;
   - CI=false yarn run build || travis_terminate 1;
-
-script:
   - yarn run test || travis_terminate 1;
-
-after_script:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
-      npm-cli-login -u $NPM_USER -p $NPM_PASS -e $NPM_EMAIL
-    fi
-  - if [ "$TRAVIS_BRANCH" == "master" AND commit_message ~ /(deploy|wip)/ ]; then
-      echo "Depoyt!"
-    fi
