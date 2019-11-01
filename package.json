@@ -5,7 +5,7 @@
   "license": "Unlicense",
   "scripts": {
     "build": "npx tsc && ./node_modules/.bin/babel tsBuild --out-dir dist && cp ./tsBuild/index.d.ts ./dist && rm -rf tsBuild",
-    "test": ""
+    "test": "yarn run build && yarn --cwd 'client' install && cd test && yarn run test"
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.5.1",

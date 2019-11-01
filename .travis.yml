@@ -16,6 +16,3 @@ before_script:
 
 script:
 - CI=false yarn run build || travis_terminate 1;
-
-after_script:
-# - firebase deploy -m "Travis, Build $TRAVIS_BUILD_NUMBER, commit $TRAVIS_COMMIT" --non-interactive --token $FIREBASE_TOKEN
