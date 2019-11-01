@@ -8,15 +8,4 @@ install:
 - npm install -g npx
 - yarn install --non-interactive --pure-lockfile
 
-script:
-  - yarn run lint || travis_terminate 1;
-  - CI=false yarn run build || travis_terminate 1;
-  - yarn run test || travis_terminate 1;
-
-deploy:
-  provider: script
-  skip_cleanup: true
-  script: deploy.sh
-  on:
-    branch: master
-    tags: true
+script: ./scripts/build.sh
