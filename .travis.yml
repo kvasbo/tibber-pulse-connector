@@ -9,3 +9,9 @@ install:
 - yarn install --non-interactive --pure-lockfile
 
 script: ./scripts/build.sh
+
+after_success:
+  script: ./scripts/deploy.sh
+  on:
+    branch: master
+    tags: true
