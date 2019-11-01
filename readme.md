@@ -4,6 +4,7 @@ A node/browser wrapper for the Tibber Pulse websocket API.
 * Breaking change in 3.0.0: onData now required, exported class renamed (capitalized).
 
 3.0.0 Changelog: 
+
 * Added phase voltage and phase current data.
 * Internal changes
 
