@@ -1,12 +1,13 @@
-A wrapper for the Tibber Pulse websocket API.
+A node/browser wrapper for the Tibber Pulse websocket API.
 
 Breaking change in 2.0.0: Options is now an object.
+Breaking change in 3.0.0: onData now required, exported class renamed (capitalized).
 
 Parameters: 
 
 * token: Required, from the Tibber API
 * homeId: Required, from the Tibber API. Either a string or an array of strings.
-* onData: On data received. Not required, but no idea why you'd use this without it. Is called with two variables - (data, homeId)
+* onData: Required. On data received. Is called with two variables - (data, homeId)
 * onError: Returns any errors from the subscription. Is called with two variables - (data, homeId)
 
 Methods: 
