@@ -122,4 +122,4 @@ class TibberConnector {
 
 module.exports = TibberConnector;
 
-export default tibberConnector;
+export default TibberConnector;
