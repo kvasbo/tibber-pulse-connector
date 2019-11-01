@@ -19,3 +19,6 @@ after_script:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       npm-cli-login -u $NPM_USER -p $NPM_PASS -e $NPM_EMAIL
     fi
+  - if [ "$TRAVIS_BRANCH" == "master" AND commit_message ~ /(deploy|wip)/ ]; then
+      echo "Depoyt!"
+    fi
