@@ -5,7 +5,9 @@
   "license": "Unlicense",
   "scripts": {
     "build": "npx tsc && ./node_modules/.bin/babel tsBuild --out-dir dist && cp ./tsBuild/index.d.ts ./dist && rm -rf tsBuild",
-    "test": "yarn run build && yarn --cwd 'client' install && cd test && yarn run test"
+    "test": "yarn run build && yarn --cwd 'client' install && cd test && yarn run test",
+    "lint": "./node_modules/.bin/eslint src --ext .ts,.tsx",
+    "lint-fix": "./node_modules/.bin/eslint src --ext .ts,.tsx --fix"
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.5.1",
@@ -21,6 +23,12 @@
     "@babel/preset-env": "^7.6.2",
     "@types/node": "^12.7.11",
     "@types/ws": "^6.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.6.0",
+    "@typescript-eslint/parser": "^2.6.0",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.18.2",
     "typescript": "^3.6.3"
   },
   "description": "A connector for the Tibber Pulse API",

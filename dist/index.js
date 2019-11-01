@@ -26,7 +26,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["subscription liveConsumption($homeId: ID!) {\n  liveMeasurement(homeId:$homeId)\n    {\n      timestamp\n      power\n      powerProduction\n      accumulatedConsumption\n      accumulatedProduction\n      accumulatedCost\n      accumulatedReward\n      currency\n      minPower\n      averagePower\n      maxPower\n      minPowerProduction\n      maxPowerProduction\n      lastMeterConsumption\n      lastMeterProduction\n    }\n  }"]);
+  var data = _taggedTemplateLiteral(["subscription liveConsumption($homeId: ID!) {\n  liveMeasurement(homeId:$homeId)\n    {\n      timestamp\n      power\n      powerProduction\n      accumulatedConsumption\n      accumulatedProduction\n      accumulatedCost\n      accumulatedReward\n      currency\n      minPower\n      averagePower\n      maxPower\n      minPowerProduction\n      maxPowerProduction\n      lastMeterConsumption\n      lastMeterProduction\n      voltagePhase1\n      voltagePhase2\n      voltagePhase3\n      currentPhase1\n      currentPhase2\n      currentPhase3\n    }\n  }"]);
 
   _templateObject = function _templateObject() {
     return data;
