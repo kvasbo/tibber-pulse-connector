@@ -5,13 +5,16 @@ cache:
   - npm
 
 install:
-- npm install -g npx npm-cli-login
+- npm install -g npx
 - yarn install --non-interactive --pure-lockfile
 
-script:
-- yarn run lint || travis_terminate 1;
-- CI=false yarn run build || travis_terminate 1;
-- yarn run test || travis_terminate 1;
+build:
+  script:
+    - yarn run lint || travis_terminate 1;
+    - CI=false yarn run build || travis_terminate 1;
+    - yarn run test || travis_terminate 1;
 
 after_script:
-- npm-cli-login -u $NPM_USER -p $NPM_PASS  
+  if: branch = master
+  script:
+    - npm-cli-login -u $NPM_USER -p $NPM_PASS -e $NPM_EMAIL

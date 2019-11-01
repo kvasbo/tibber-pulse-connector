@@ -17,6 +17,7 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/explicit-member-accessibility": 0,
     "no-console": 1,
+
   },
   settings: {
   },
