@@ -1,7 +1,7 @@
 A node/browser wrapper for the Tibber Pulse websocket API.
 
-Breaking change in 2.0.0: Options is now an object.
-Breaking change in 3.0.0: onData now required, exported class renamed (capitalized).
+* Breaking change in 2.0.0: Options is now an object.
+* Breaking change in 3.0.0: onData now required, exported class renamed (capitalized).
 
 3.0.0 Changelog: 
 
