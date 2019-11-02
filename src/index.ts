@@ -1,7 +1,8 @@
 import { WebSocketLink } from "apollo-link-ws";
-import { InMemoryCache } from "apollo-cache-inmemory";
+import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import ApolloClient from "apollo-client";
 import gql from "graphql-tag";
+import { ApiResponse } from "./types";
 
 const ENDPOINT = `wss://api.tibber.com/v1-beta/gql/subscriptions`;
 
@@ -46,8 +47,7 @@ class TibberConnector {
   private onData: Function;
   private onError: Function;
   private link: WebSocketLink;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private client: any;
+  private client: ApolloClient<NormalizedCacheObject>;
 
   constructor(options: TibberConnectorOptions) {
     const { token, homeId, onData, ws, onError } = options;
@@ -64,13 +64,13 @@ class TibberConnector {
     this.onData = onData;
 
     // Fallback function if no callbacks defined.
-    /* eslint-disable @typescript-eslint/no-explicit-any, no-console, @typescript-eslint/indent, prettier/prettier */
+    /* eslint-disable @typescript-eslint/indent, prettier/prettier */
     this.onError = onError
       ? onError
       : (error: Error) => {
         throw error;
       };
-    /* eslint-enable @typescript-eslint/no-explicit-any, no-console, @typescript-eslint/indent, prettier/prettier */
+    /* eslint-enable @typescript-eslint/indent, prettier/prettier */
 
     // Make sure we have an array of ids.
     if (Array.isArray(homeId)) {
@@ -89,7 +89,7 @@ class TibberConnector {
       }
     };
 
-    // Add websocket if defined
+    // Add websocket if defined (needed with node)
     if (ws) {
       linkOptions.webSocketImpl = ws;
     }
@@ -109,8 +109,12 @@ class TibberConnector {
       this.client
         .subscribe({ query: CONSUMPTION_QUERY, variables: { homeId: id } })
         .subscribe({
-          next: (data: object) => {
-            this.onData(data, id);
+          next: (data: ApiResponse) => {
+            if (!data.data || !data.data.liveMeasurement) {
+              this.onError(Error("Malformed response"));
+            } else {
+              this.onData(data, id);
+            }
           },
           error: (err: Error) => {
             this.onError(err, id);
