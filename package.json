@@ -1,6 +1,6 @@
 {
   "name": "tibber-pulse-connector",
-  "version": "3.0.1",
+  "version": "3.0.3",
   "main": "dist/index.js",
   "license": "Unlicense",
   "scripts": {
@@ -21,7 +21,7 @@
     "@babel/cli": "^7.6.2",
     "@babel/core": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
-    "@types/node": "^12.7.11",
+    "@types/node": "^13.1.1",
     "@types/ws": "^6.0.3",
     "@typescript-eslint/eslint-plugin": "^2.6.0",
     "@typescript-eslint/parser": "^2.6.0",
@@ -31,7 +31,7 @@
     "prettier": "^1.18.2",
     "typescript": "^3.6.3"
   },
-  "description": "A connector for the Tibber Pulse API",
+  "description": "A node/browser API wrapper for the Tibber Pulse API",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kvasbo/tibber-pulse-connector.git"
