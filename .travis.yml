@@ -5,7 +5,7 @@ cache:
   - npm
 
 install:
-- npm install -g npx
+- sudo npm install -g npx
 - yarn install --non-interactive --pure-lockfile
 
 stages:
