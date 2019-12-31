@@ -1,0 +1,71 @@
+name: CI
+on: [push, release]
+
+jobs:
+  build:
+    name: Lint and build
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Check Out
+      uses: actions/checkout@v1
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - name: Install Client Dependencies
+      run: yarn install --non-interactive --pure-lockfile
+    - name: Lint
+      run: yarn run lint
+    - name: Build
+      run: yarn run build
+    - name: Test
+      run: yarn run test
+    - name: Archive build
+      uses: actions/upload-artifact@master
+      with:
+        name: dist
+        path: dist
+
+  release:
+    name: Deploy
+    needs: build
+    if: contains(github.ref, 'master')
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Check if version has been updated
+        id: check
+        uses: EndBug/version-check@v1.1.0
+        with: 
+          diff-search: true
+
+      - name: Log when changed
+        if: steps.check.outputs.changed == 'true'
+        run: 'echo "Version change! -> ${{ steps.check.outputs.type }}"'
+
+      - name: Check Out
+        if: steps.check.outputs.changed == 'true'
+        uses: actions/checkout@v1
+
+      - name: Download Artifact
+        if: steps.check.outputs.changed == 'true'
+        uses: actions/download-artifact@master
+        with:
+          name: dist
+          path: dist
+
+      - name: Set up Node.js for NPM
+        if: steps.check.outputs.changed == 'true'
+        uses: actions/setup-node@v1.2.0
+        with:
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        if: steps.check.outputs.changed == 'true'
+        run: npm install
+
+      - name: Publish package to NPM
+        if: steps.check.outputs.changed == 'true'
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
