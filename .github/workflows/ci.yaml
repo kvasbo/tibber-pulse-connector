@@ -40,8 +40,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 10.x
-      - name: Install npm-cli-login
-      run: npm install -g npm-cli-login
+      - name: Install npm client login
+        run: npm install -g npm-cli-login
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
