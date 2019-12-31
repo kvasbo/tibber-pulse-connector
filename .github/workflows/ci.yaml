@@ -48,5 +48,5 @@ jobs:
           name: dist
           path: dist
       - name: Login to NPM
-        run: npm-cli-login -u $NPM_USER -p $NPM_PASS -e $NPM_EMAIL
+        run: npm-cli-login -u $NPM_USER -p $NPM_PASSWORD -e $NPM_EMAIL
         
