@@ -35,6 +35,8 @@ jobs:
       NPM_PASSWORD: ${{ secrets.NPM_PASSWORD }}
       NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
     steps:
+      - name: Check Out
+        uses: actions/checkout@v1
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
