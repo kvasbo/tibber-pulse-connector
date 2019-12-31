@@ -25,3 +25,28 @@ jobs:
       with:
         name: dist
         path: dist
+
+  release:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-18.04
+    # if:
+    env:
+      NPM_USER: ${{ secrets.NPM_USER }}
+      NPM_USER: ${{ secrets.NPM_PASSWORD }}
+      NPM_USER: ${{ secrets.NPM_EMAIL }}
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+      - name: Install npm-cli-login
+      run: npm install -g npm-cli-login
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: dist
+          path: dist
+      - name: Login to NPM
+        run: npm-cli-login -u $NPM_USER -p $NPM_PASS -e $NPM_EMAIL
+        
