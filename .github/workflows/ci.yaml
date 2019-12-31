@@ -36,7 +36,7 @@ jobs:
       - name: Check Out
         if: steps.check.outputs.changed == 'true'
         uses: actions/checkout@v1
-        
+
       - name: Check if version has been updated
         id: check
         uses: EndBug/version-check@v1.1.0
