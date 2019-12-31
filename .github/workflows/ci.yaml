@@ -26,11 +26,10 @@ jobs:
         name: dist
         path: dist
 
-  release:
+  release-beta:
     name: Deploy
     needs: build
     runs-on: ubuntu-18.04
-    # if:
     env:
       NPM_USER: ${{ secrets.NPM_USER }}
       NPM_PASSWORD: ${{ secrets.NPM_PASSWORD }}
@@ -42,6 +41,8 @@ jobs:
           node-version: 10.x
       - name: Install npm client login
         run: npm install -g npm-cli-login
+      - name: Install NP
+        run: npm install --global np
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
@@ -49,4 +50,5 @@ jobs:
           path: dist
       - name: Login to NPM
         run: npm-cli-login -u $NPM_USER -p $NPM_PASSWORD -e $NPM_EMAIL
-        
+      - name: NP
+        run: np prepatch
