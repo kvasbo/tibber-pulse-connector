@@ -53,4 +53,4 @@ jobs:
       - name: Login to NPM
         run: npm-cli-login -u $NPM_USER -p $NPM_PASSWORD -e $NPM_EMAIL
       - name: NP
-        run: np prepatch
+        run: np prepatch --tag=dev
