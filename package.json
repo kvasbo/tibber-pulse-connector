@@ -5,7 +5,8 @@
   "license": "Unlicense",
   "scripts": {
     "build": "npx tsc && ./node_modules/.bin/babel tsBuild --out-dir dist && cp ./tsBuild/index.d.ts ./dist && rm -rf tsBuild",
-    "test": "yarn run build && yarn --cwd 'client' install && cd test && yarn run test",
+    "test": "yarn run build && yarn run test-as-built",
+    "test-as-built": "cd test && yarn run test",
     "lint": "./node_modules/.bin/eslint src --ext .ts,.tsx",
     "lint-fix": "./node_modules/.bin/eslint src --ext .ts,.tsx --fix"
   },
