@@ -34,7 +34,6 @@ jobs:
 
     steps:
       - name: Check Out
-        if: steps.check.outputs.changed == 'true'
         uses: actions/checkout@v1
 
       - name: Check if version has been updated
