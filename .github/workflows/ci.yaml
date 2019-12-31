@@ -1,5 +1,5 @@
 name: CI
-on: [push, release]
+on: push
 
 jobs:
   build:
@@ -31,38 +31,31 @@ jobs:
     needs: build
     if: contains(github.ref, 'master')
     runs-on: ubuntu-18.04
-
     steps:
       - name: Check Out
         uses: actions/checkout@v1
-
       - name: Check if version has been updated
         id: check
         uses: EndBug/version-check@v1.1.0
         with: 
           diff-search: true
-
       - name: Log when changed
         if: steps.check.outputs.changed == 'true'
         run: 'echo "Version change! -> ${{ steps.check.outputs.type }}"'
-
       - name: Download Artifact
         if: steps.check.outputs.changed == 'true'
         uses: actions/download-artifact@master
         with:
           name: dist
           path: dist
-
       - name: Set up Node.js for NPM
         if: steps.check.outputs.changed == 'true'
         uses: actions/setup-node@v1.2.0
         with:
           registry-url: 'https://registry.npmjs.org'
-
       - name: Install dependencies
         if: steps.check.outputs.changed == 'true'
-        run: npm install
-
+        run: yarn install --non-interactive --pure-lockfile
       - name: Publish package to NPM
         if: steps.check.outputs.changed == 'true'
         run: npm publish
