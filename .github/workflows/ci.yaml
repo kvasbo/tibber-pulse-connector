@@ -1,0 +1,27 @@
+name: CI
+on: [push, release]
+
+jobs:
+  build:
+    name: Lint and build
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Check Out
+      uses: actions/checkout@v1
+    - name: Setup Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - name: Install Client Dependencies
+      run: yarn install --non-interactive --pure-lockfile
+    - name: Lint
+      run: yarn run lint
+    - name: Build
+      run: yarn run build
+    - name: Test
+      run: yarn run test
+    - name: Archive build
+      uses: actions/upload-artifact@master
+      with:
+        name: dist
+        path: dist
