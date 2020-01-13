@@ -60,6 +60,6 @@ connector.start();
 ```
 
 
-[![Build Status](https://travis-ci.com/kvasbo/tibber-pulse-connector.svg?branch=master)](https://travis-ci.com/kvasbo/tibber-pulse-connector)
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fkvasbo%2Ftibber-pulse-connector%2Fbadge%3Fref%3Dmaster&style=flat-square)](https://actions-badge.atrox.dev/kvasbo/tibber-pulse-connector/goto?ref=master)
 
 [![DeepScan grade](https://deepscan.io/api/teams/5079/projects/6857/branches/60182/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=5079&pid=6857&bid=60182)
