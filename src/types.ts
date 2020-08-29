@@ -27,3 +27,10 @@ export interface ApiResponse {
     liveMeasurement: ApiResponseData;
   };
 }
+
+export type CorrectResponseCallback = (
+  data: ApiResponse,
+  id: string
+) => unknown;
+
+export type ErrorCallback = (e: Error, id?: string) => unknown;

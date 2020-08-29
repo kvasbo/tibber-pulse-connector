@@ -2,7 +2,7 @@ import { WebSocketLink } from "apollo-link-ws";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import ApolloClient from "apollo-client";
 import gql from "graphql-tag";
-import { ApiResponse } from "./types";
+import { ApiResponse, ErrorCallback, CorrectResponseCallback } from "./types";
 
 const ENDPOINT = `wss://api.tibber.com/v1-beta/gql/subscriptions`;
 
@@ -37,15 +37,15 @@ const CONSUMPTION_QUERY = gql`
 interface TibberConnectorOptions {
   token: string;
   homeId: string | string[];
-  onData?: Function;
-  onError?: Function;
+  onData?: CorrectResponseCallback;
+  onError?: ErrorCallback;
   ws?: WebSocket;
 }
 
 class TibberConnector {
   private homeId: string[];
-  private onData: Function;
-  private onError: Function;
+  private onData: CorrectResponseCallback;
+  private onError: ErrorCallback;
   private link: WebSocketLink;
   private client: ApolloClient<NormalizedCacheObject>;
 
@@ -84,9 +84,9 @@ class TibberConnector {
       options: {
         reconnect: true,
         connectionParams: () => ({
-          token: token
-        })
-      }
+          token: token,
+        }),
+      },
     };
 
     // Add websocket if defined (needed with node)
@@ -100,25 +100,25 @@ class TibberConnector {
     // Set up client
     this.client = new ApolloClient({
       link: this.link,
-      cache: new InMemoryCache()
+      cache: new InMemoryCache(),
     });
   }
 
-  public start = () => {
-    this.homeId.forEach(id => {
+  public start = (): void => {
+    this.homeId.forEach((id) => {
       this.client
         .subscribe({ query: CONSUMPTION_QUERY, variables: { homeId: id } })
         .subscribe({
           next: (data: ApiResponse) => {
             if (!data.data || !data.data.liveMeasurement) {
-              this.onError(Error("Malformed response"));
+              this.onError(Error("Malformed response"), id);
             } else {
               this.onData(data, id);
             }
           },
           error: (err: Error) => {
             this.onError(err, id);
-          }
+          },
         });
     });
   };
