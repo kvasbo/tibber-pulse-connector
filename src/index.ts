@@ -2,7 +2,6 @@ import { WebSocketLink } from "apollo-link-ws";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import ApolloClient from "apollo-client";
 import gql from "graphql-tag";
-// import axios from "axios";
 import { ApiResponse, ErrorCallback, CorrectResponseCallback } from "./types";
 
 const ENDPOINT = `wss://api.tibber.com/v1-beta/gql/subscriptions`;
