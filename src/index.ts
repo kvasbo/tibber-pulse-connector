@@ -68,8 +68,8 @@ class TibberConnector {
     this.onError = onError
       ? onError
       : (error: Error) => {
-        throw error;
-      };
+          throw error;
+        };
     /* eslint-enable @typescript-eslint/indent, prettier/prettier */
 
     // Make sure we have an array of ids.
@@ -125,5 +125,3 @@ class TibberConnector {
 }
 
 module.exports = TibberConnector;
-
-export default TibberConnector;
