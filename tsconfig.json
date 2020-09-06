@@ -2,7 +2,7 @@
   "compilerOptions": {
     /* Basic Options */
     "target": "es6",
-    "module": "es2015",
+    "module": "commonJS",
     "skipLibCheck": true,
     "lib": ["dom", "es2015"],
     "declaration": true,
