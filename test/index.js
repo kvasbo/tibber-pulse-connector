@@ -1,5 +1,5 @@
-const ws = require('ws');
-const tibber = require('../dist/index');
+const ws = require("ws");
+const tibber = require("../dist/index");
 let datas = 0;
 
 // Test tokens
@@ -9,18 +9,30 @@ const homeId = [`c70dcbe5-4485-4821-933d-a8a86452737b`];
 // Give up test after 30s.
 setTimeout(() => process.exit(1), 30000);
 
-function gotData(id, data) {
-  datas += 1;
-  console.log(id, data)
-  if (datas > 3) {
-     process.exit(0);
-  }
+async function gotData(id, data) {
+    datas += 1;
+    console.log(id, data);
+    if (datas > 3) {
+        console.log(await connector.getPowerPrices(homeId));
+        console.log(await connector.getConsumption(homeId));
+        process.exit(0);
+    }
 }
 
 function gotError(id, err) {
-  console.error(id, err)
-  process.exit(1);
+    console.error(id, err);
+    process.exit(1);
 }
 
-const connector = new tibber({token, homeId, onData: (data, id) => { gotData(id, data) }, onError: (error, id) => { gotError(id, error) }, ws});
+const connector = new tibber({
+    token,
+    homeId,
+    onData: (data, id) => {
+        gotData(id, data);
+    },
+    onError: (error, id) => {
+        gotError(id, error);
+    },
+    ws,
+});
 connector.start();

@@ -22,6 +22,23 @@ export interface ApiResponseData {
   currentPhase3: number | null;
 }
 
+export interface PowerPrice {
+  total: number;
+  energy: number;
+  tax: number;
+  startsAt: number;
+}
+
+export interface Consumption {
+  from: string;
+  to: string;
+  cost: number;
+  unitPrice: number;
+  unitPriceVAT: number;
+  consumption: number;
+  consumptionUnit: string;
+}
+
 export interface ApiResponse {
   data: {
     liveMeasurement: ApiResponseData;
